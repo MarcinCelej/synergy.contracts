@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Runtime.Serialization;
 using JetBrains.Annotations;
 
 namespace Synergy.Contracts
@@ -8,6 +9,7 @@ namespace Synergy.Contracts
     /// The exception thrown when some contract check failed.
     /// When you see it it means that someone does not meet the contract.
     /// </summary>
+    [Serializable]
     [DebuggerStepThrough]
     public class DesignByContractViolationException : Exception
     {
@@ -23,6 +25,14 @@ namespace Synergy.Contracts
         /// </summary>
         /// <param name="message"></param>
         public DesignByContractViolationException([NotNull] string message) : base(message)
+        {
+        }
+
+        /// <summary>
+        /// Serialization required constructor.
+        /// </summary>
+        protected DesignByContractViolationException([NotNull] SerializationInfo info, StreamingContext context) :
+            base(info, context)
         {
         }
     }
